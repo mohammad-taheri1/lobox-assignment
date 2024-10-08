@@ -1,5 +1,7 @@
-import { useState, useId, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ISelectItem } from '../../types/general.types.ts';
+import { FaCheck } from 'react-icons/fa';
+
 import './select.scss';
 
 interface IProps {
@@ -22,6 +24,7 @@ const Select = ({ items, onSelect }: IProps) => {
 			const itemsCopy = [...localItems];
 			itemsCopy.unshift(newItem);
 			setLocalItems(itemsCopy);
+			e.target.value = '';
 		}
 	};
 
@@ -43,16 +46,22 @@ const Select = ({ items, onSelect }: IProps) => {
 		<div className='container'>
 			<input type='text' placeholder='Type and press enter to add...' onKeyUp={keyUpHandler} />
 			<div className='select'>
-				<div className='selected-item' onClick={() => setIsListOpen(prev => !prev)}>
+				<div className={`selected-item ${isListOpen ? 'open' : ''}`} onClick={() => setIsListOpen(prev => !prev)}>
 					{selectedItem ? selectedItem.value : null}
 				</div>
 				{isListOpen ? (
 					<div ref={expandableRef} className='expandable'>
-						<ul>
+						<ul className='scrollabe'>
 							{localItems.map((item, index) => (
-								<li key={index} onClick={() => setSelectedItem(item)}>
-									<span>{item.value}</span>
-									{item.icon ? item.icon : null}
+								<li
+									key={index}
+									className={`${item.value === selectedItem?.value ? 'selected' : ''}`}
+									onClick={() => setSelectedItem(item)}>
+									<div className='contents'>
+										<span>{item.value}</span>
+										{item.icon ? item.icon : null}
+									</div>
+									{item.value === selectedItem?.value ? <FaCheck /> : null}
 								</li>
 							))}
 						</ul>
