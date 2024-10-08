@@ -21,6 +21,10 @@ const Select = ({ items, onSelect }: IProps) => {
 			const newItem: ISelectItem = {
 				value: e.target.value
 			};
+			if (localItems.some(q => q.value === newItem.value)) {
+				alert('Duplicate Item can not be inserted');
+				return;
+			}
 			const itemsCopy = [...localItems];
 			itemsCopy.unshift(newItem);
 			setLocalItems(itemsCopy);
