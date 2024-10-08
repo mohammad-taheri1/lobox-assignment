@@ -11,5 +11,6 @@
 - [x] Use ReactJS
 - [ ] Make the code reusable
 - [x] Use TypeScript
-- [ ] Use SCSS
+- [x] Use SCSS
+- [x] Create Select component
 - [ ] Try to implement it similarly to the image as much as possible.

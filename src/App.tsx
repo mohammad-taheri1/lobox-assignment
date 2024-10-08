@@ -1,8 +1,10 @@
+import HomePage from './pages/home/HomePage.tsx';
+
 const App = () => {
 	return (
-		<div>
-			<h1>App</h1>
-		</div>
+		<main className='page'>
+			<HomePage />
+		</main>
 	);
 };
 
