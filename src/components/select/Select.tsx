@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { ISelectItem } from '../../types/general.types.ts';
 import { FaCheck } from 'react-icons/fa';
+import { FaChevronDown } from 'react-icons/fa6';
 
 import './select.scss';
 
@@ -15,6 +16,7 @@ const Select = ({ items, onSelect }: IProps) => {
 	const [isListOpen, setIsListOpen] = useState<boolean>(false);
 
 	const expandableRef = useRef(null);
+	const selectedItemRef = useRef(null);
 
 	const keyUpHandler = e => {
 		if (e.code === 'Enter') {
@@ -33,7 +35,13 @@ const Select = ({ items, onSelect }: IProps) => {
 	};
 
 	const checkIfClickOutside = (event: MouseEvent) => {
-		if (isListOpen && expandableRef.current && !(expandableRef.current as HTMLElement).contains(event.target as Node)) {
+		if (
+			isListOpen &&
+			expandableRef.current &&
+			!(expandableRef.current as HTMLElement).contains(event.target as Node) &&
+			selectedItemRef.current &&
+			!(selectedItemRef.current as HTMLElement).contains(event.target as Node)
+		) {
 			setIsListOpen(false);
 		}
 	};
@@ -50,8 +58,12 @@ const Select = ({ items, onSelect }: IProps) => {
 		<div className='container'>
 			<input type='text' placeholder='Type and press enter to add...' onKeyUp={keyUpHandler} />
 			<div className='select'>
-				<div className={`selected-item ${isListOpen ? 'open' : ''}`} onClick={() => setIsListOpen(prev => !prev)}>
-					{selectedItem ? selectedItem.value : null}
+				<div
+					ref={selectedItemRef}
+					className={`selected-item ${isListOpen ? 'open' : ''}`}
+					onClick={() => setIsListOpen(prev => !prev)}>
+					<span>{selectedItem ? selectedItem.value : null}</span>
+					<FaChevronDown />
 				</div>
 				{isListOpen ? (
 					<div ref={expandableRef} className='expandable'>
