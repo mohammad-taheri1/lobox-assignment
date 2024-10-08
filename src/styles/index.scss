@@ -1,0 +1,41 @@
+@import './mixins';
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	min-height: 100vh;
+	background-color: #f8f8f8;
+}
+
+a {
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+}
+
+input:disabled {
+	background-color: #ffffff;
+}
+
+.page {
+	max-width: 1280px;
+	margin: 0 auto;
+}
+
+.scrollabe::-webkit-scrollbar {
+	width: 8px;
+}
+
+.scrollabe::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.scrollabe::-webkit-scrollbar-thumb {
+	background: #d3d3d3;
+}

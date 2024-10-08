@@ -1,0 +1,11 @@
+@mixin d-flex($direction, $justify, $align) {
+	display: flex;
+	flex-direction: $direction;
+	justify-content: $justify;
+	align-items: $align;
+}
+
+@mixin input-border {
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 16px;
+}
