@@ -3,11 +3,17 @@
 .home {
 	nav {
 		@include d-flex(row, space-between, center);
+		gap: 2rem;
 		padding: 2rem 1rem;
+
+		svg {
+			flex-shrink: 0;
+		}
+
 		.search {
 			@include input-border;
-			width: 600px;
-			max-width: 100%;
+			width: 100%;
+			max-width: 600px;
 			padding: 0.5rem 1rem;
 			font-size: 16px;
 

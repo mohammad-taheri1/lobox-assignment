@@ -11,7 +11,7 @@ const HomePage = () => {
 				<input type='text' className='search' placeholder='search...' />
 			</nav>
 			<div className='content'>
-				<Select items={mockSelectItems} onSelect={item => {}} />
+				<Select items={mockSelectItems} onSelect={item => console.log(item)} />
 			</div>
 		</div>
 	);
