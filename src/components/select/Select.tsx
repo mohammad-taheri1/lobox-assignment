@@ -36,6 +36,7 @@ const Select = ({ items, onSelect }: IProps) => {
 
 	const itemClickHandler = (item: ISelectItem) => {
 		setSelectedItem(item);
+		setIsListOpen(false);
 		onSelect(item);
 	};
 
