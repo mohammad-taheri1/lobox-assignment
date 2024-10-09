@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, KeyboardEvent } from 'react';
 import { ISelectItem } from '../../types/general.types.ts';
 import { FaCheck } from 'react-icons/fa';
 import { FaChevronDown } from 'react-icons/fa6';
@@ -18,10 +18,10 @@ const Select = ({ items, onSelect }: IProps) => {
 	const expandableRef = useRef(null);
 	const selectedItemRef = useRef(null);
 
-	const keyUpHandler = e => {
+	const keyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
 		if (e.code === 'Enter') {
 			const newItem: ISelectItem = {
-				value: e.target.value
+				value: (e.target as HTMLInputElement).value
 			};
 			if (localItems.some(q => q.value === newItem.value)) {
 				alert('Duplicate Item can not be inserted');
@@ -30,8 +30,13 @@ const Select = ({ items, onSelect }: IProps) => {
 			const itemsCopy = [...localItems];
 			itemsCopy.unshift(newItem);
 			setLocalItems(itemsCopy);
-			e.target.value = '';
+			(e.target as HTMLInputElement).value = '';
 		}
+	};
+
+	const itemClickHandler = (item: ISelectItem) => {
+		setSelectedItem(item);
+		onSelect(item);
 	};
 
 	const checkIfClickOutside = (event: MouseEvent) => {
@@ -56,7 +61,7 @@ const Select = ({ items, onSelect }: IProps) => {
 
 	return (
 		<div className='container'>
-			<input type='text' placeholder='Type and press enter to add...' onKeyUp={keyUpHandler} />
+			<input type='text' placeholder='Type and press enter to add...' onKeyUp={e => keyUpHandler(e)} />
 			<div className='select'>
 				<div
 					ref={selectedItemRef}
@@ -72,7 +77,7 @@ const Select = ({ items, onSelect }: IProps) => {
 								<li
 									key={index}
 									className={`${item.value === selectedItem?.value ? 'selected' : ''}`}
-									onClick={() => setSelectedItem(item)}>
+									onClick={() => itemClickHandler(item)}>
 									<div className='contents'>
 										<span>{item.value}</span>
 										{item.icon ? item.icon : null}
